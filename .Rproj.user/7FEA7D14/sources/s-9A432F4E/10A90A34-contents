@@ -1,0 +1,37 @@
+library(shiny)
+library(leaflet)
+library(magrittr)
+library(RColorBrewer)
+crimedata<-read.csv('crimedata.csv', stringsAsFactors = FALSE)
+
+r_colors <- rgb(t(col2rgb(colors()) / 255))
+names(r_colors) <- colors()
+
+ui <- bootstrapPage(
+  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+  leafletOutput("SFmap"),
+  absolutePanel(top = 10, right = 10,
+                selectInput('Category', 'Choose the category', choices = c('BRIBERY'=1, 'SUICIDE'=2, 'ARSON' =3, 'BURGLARY'=4, 'DRUNKENNESS'=5, 'VEHICLE THEFT'=6))
+                
+  )
+)
+
+server <- function(input, output, session) {
+  
+  filteredData <- reactive({
+    crimename<-c('BRIBERY', 'SUICIDE', 'ARSON', 'BURGLARY', 'DRUNKENNESS','VEHICLE THEFT')
+    print(crimename[as.numeric(input$Category)])
+    new_crimedata<<-SFdata[SFdata$Category==crimename[as.numeric(input$Category)],]
+    return(new_crimedata)
+  })
+  
+  print("Test")
+  output$SFmap <- renderLeaflet({
+    leaflet(filteredData()) %>%
+      addTiles() %>%   
+      setView(-122.42, 37.78, zoom = 13) %>% 
+      addCircleMarkers(data=filteredData(), filteredData()$X, filteredData()$Y,popup = filteredData()$Category, radius = 5,clusterOptions = markerClusterOptions())
+  })
+}
+
+shinyApp(ui, server)

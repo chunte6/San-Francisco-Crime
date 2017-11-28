@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1509903973590.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "10A90A34",
+    "lastKnownWriteTime" : 1509904389,
+    "last_content_update" : 1509904389669,
+    "path" : "~/TutorialforShiny/LeafletwShiny.R",
+    "project_path" : "LeafletwShiny.R",
+    "properties" : {
+        "cursorPosition" : "23,29",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
